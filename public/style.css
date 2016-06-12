@@ -1,0 +1,9 @@
+body{
+	color: #fff;
+	background-image:url('background.jpg'); 
+	background-repeat: no-repeat; 
+	background-size: cover;
+}
+h1, h3{
+	text-align: center;
+}

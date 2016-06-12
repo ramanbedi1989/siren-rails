@@ -78,6 +78,7 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
+    pg (0.18.4)
     puma (3.4.0)
     rack (2.0.0.alpha)
       json
@@ -106,6 +107,11 @@ GEM
     rails-push-notifications (0.2.2)
       rails (>= 3.2)
       ruby-push-notifications (~> 0.3)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.0.0.beta4)
       actionpack (= 5.0.0.beta4)
       activesupport (= 5.0.0.beta4)
@@ -151,9 +157,11 @@ DEPENDENCIES
   devise
   google_maps_service
   listen (~> 3.0.5)
+  pg
   puma (~> 3.0)
   rails (>= 5.0.0.beta4, < 5.1)
   rails-push-notifications
+  rails_12factor
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
