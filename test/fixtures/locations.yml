@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  user_id: 1
+  emergency_route_id: 1
+  latitude: 
+  longitude: 
+
+two:
+  type: 
+  user_id: 1
+  emergency_route_id: 1
+  latitude: 
+  longitude: 
