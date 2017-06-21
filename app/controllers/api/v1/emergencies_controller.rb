@@ -1,5 +1,6 @@
 class Api::V1::EmergenciesController < ApplicationController
   respond_to :json
+  before_filter :authenticate_with_token!, only: :traffic_light_details
 
   def show
     current_route = EmergencyRoute.find params[:id]
