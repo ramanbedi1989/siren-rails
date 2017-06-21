@@ -47,6 +47,20 @@ class Api::V1::EmergenciesController < ApplicationController
     end
   end
 
+  def traffic_light_details
+    current_route = EmergencyRoute.find(params[:id])
+    #current implementation to turn green on any light being changed on the route.
+    if current_route.present?
+      if(current_route.locations.where(light_status: true).count > 0) 
+        render json: {light_status: 1}, status: 200
+      else
+        render json: {light_status: 0}, status: 200
+      end
+    else
+      render json: {errors: ['Unable to find current route'], light_status: 0}, status: 404
+    end
+  end
+
   def location_params
     params.permit(:latitude, :longitude)
   end

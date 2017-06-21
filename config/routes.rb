@@ -11,6 +11,7 @@ Rails.application.routes.draw do
           post :create_origin
           put :update_location
           put :switch_traffic_light
+          get :traffic_light_details
         end
       end
     end
