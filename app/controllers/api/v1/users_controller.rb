@@ -31,10 +31,11 @@ class Api::V1::UsersController < ApplicationController
       elsif current_user.healer?
         if current_user.busy?
           if current_user.healer_emergency_routes.last.present?
-          destination = current_user.healer_emergency_routes.last.locations.destinations.first
-          gmaps = GoogleMapsService::Client.new(key: ENV['GOOGLE_AUTH_KEY'])
-          destination_location = gmaps.reverse_geocode([latitude, longitude]).first[:formatted_address]
-          render json: { status: "Help required at #{destination_location}" }, status: 200
+            destination = current_user.healer_emergency_routes.last.locations.destinations.first
+            gmaps = GoogleMapsService::Client.new(key: ENV['GOOGLE_AUTH_KEY'])
+            destination_location = gmaps.reverse_geocode([latitude, longitude]).first[:formatted_address]
+            render json: { status: "Help required at #{destination_location}" }, status: 200
+          end
         else
           render json: { status: 'No buzzfeed for you' }, status: 200
         end
