@@ -1,5 +1,6 @@
 class EmergencyRoute < ApplicationRecord
-  belongs_to :user
+  belongs_to :sufferer, class_name: 'User', foreign_key: :sufferer_id
+  belongs_to :healer, class_name: 'User', foreign_key: :healer_id
   has_many :locations
   
   after_update :update_current_location_and_push

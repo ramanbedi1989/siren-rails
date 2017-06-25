@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612025608) do
+ActiveRecord::Schema.define(version: 20170625114902) do
 
   create_table "emergency_routes", force: :cascade do |t|
     t.text     "route_json"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20160612025608) do
     t.integer  "user_id"
     t.boolean  "active",              default: false
     t.integer  "current_location_id"
+    t.integer  "sufferer_id"
+    t.integer  "healer_id"
   end
 
   create_table "locations", force: :cascade do |t|

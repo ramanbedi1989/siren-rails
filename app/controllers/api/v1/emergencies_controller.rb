@@ -9,7 +9,7 @@ class Api::V1::EmergenciesController < ApplicationController
 
   def create_destination
     current_user.update(busy: true)
-    emergency_route = current_user.emergency_routes.create
+    emergency_route = current_user.sufferer_emergency_routes.create
     location = emergency_route.locations.create(location_params.merge(location_type: Location::VALID_TYPES[0], user_id: current_user.id))
     render json: { emergency_route_id: emergency_route.id }, status: 201
   end
@@ -20,7 +20,7 @@ class Api::V1::EmergenciesController < ApplicationController
     current_destination = current_route.locations.destinations.first
     origin_lat = current_destination.latitude + rand * 0.05
     origin_lng = current_destination.longitude + rand * 0.05
-    current_route.update(active: true)
+    current_route.update(active: true, healer: current_user)
     current_route.locations.create(latitude: origin_lat, longitude: origin_lng, location_type: Location::VALID_TYPES[1], user_id: current_user.id)
     render json: { latitude: origin_lat, longitude: origin_lng }, status: 201
   end
@@ -38,10 +38,10 @@ class Api::V1::EmergenciesController < ApplicationController
 
   def switch_traffic_light
     current_route = EmergencyRoute.find(params[:id])
-    traffic_light_id = params[:location_id]
-    if traffic_light_id.present?
-      location = Location.find(traffic_light_id)
+    location = Location.find(params[:location_id]) rescue nil
+    if location.present?
       location.update(light_status: true, user_id: current_user.id)
+      ResetTrafficLightJob.set(wait: 1.minute).perform_later(location)
       render nothing: true, status: 204
     else
       render json: {errors: ['Unable to find location Id']}, status: 404

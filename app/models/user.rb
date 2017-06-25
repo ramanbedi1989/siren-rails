@@ -18,7 +18,9 @@ class User < ApplicationRecord
 
   validate :valid_category
 
-  has_many :emergency_routes
+  has_many :sufferer_emergency_routes, :class_name => 'EmergencyRoute', :foreign_key => 'sufferer_id'
+
+  has_many :healer_emergency_routes, :class_name => 'EmergencyRoute', :foreign_key => 'healer_id'
 
   has_many :locations
 
@@ -32,6 +34,12 @@ class User < ApplicationRecord
     begin
       self.auth_token = Devise.friendly_token 
     end while self.class.exists?(auth_token: auth_token)
+  end
+
+  USER_CATEGORIES.each do |category|
+    define_method "#{category}?".to_sym do
+      self.category == category
+    end
   end
 
 end

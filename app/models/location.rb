@@ -7,6 +7,8 @@ class Location < ApplicationRecord
 
   scope :origins, lambda { where(location_type: Location::VALID_TYPES[1]) }
   scope :destinations, lambda { where(location_type: Location::VALID_TYPES[0]) }
+  scope :lights, lambda { where(location_type: Location::VALID_TYPES[2]) }
+
 
   validate :only_one_destination_and_origin
 
