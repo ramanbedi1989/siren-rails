@@ -40,7 +40,7 @@ class Api::V1::EmergenciesController < ApplicationController
     current_route = EmergencyRoute.find(params[:id])
     location = Location.find(params[:location_id]) rescue nil
     if location.present?
-      location.update(light_status: true, user_id: current_user.id)
+      location.update(light_status: true, user_id: current_user.id, sirenated: true)
       ResetTrafficLightJob.set(wait: 1.minute).perform_later(location)
       render nothing: true, status: 204
     else

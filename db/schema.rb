@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170625114902) do
+ActiveRecord::Schema.define(version: 20170625184243) do
 
   create_table "emergency_routes", force: :cascade do |t|
     t.text     "route_json"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170625114902) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.boolean  "light_status",       default: false
+    t.boolean  "sirenated"
   end
 
   create_table "rails_push_notifications_apns_apps", force: :cascade do |t|

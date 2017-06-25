@@ -23,11 +23,11 @@ class Api::V1::UsersController < ApplicationController
         elsif current_user.busy?
           render json: { status: 'We are searching for your help' }, status: 200
         else
-          render json: { status: 'No buzzfeed for you' }, status: 200
+          render json: { status: 'No BuzzFeed for you' }, status: 200
         end
       elsif current_user.mediator?
-        light_locations = Location.lights.limit(5)
-        render json: { locations: light_locations }, status: 200
+        light_locations_count = Location.lights.where(sirenated: true).where("DATE(created_at) >= ?", Date.today).count
+        render json: { status: "A total of #{light_locations_count} traffic lights were controlled using SIREN today." }, status: 200
       elsif current_user.healer?
         if current_user.busy?
           if current_user.healer_emergency_routes.last.present?
@@ -37,7 +37,7 @@ class Api::V1::UsersController < ApplicationController
             render json: { status: "Help required at #{destination_location}" }, status: 200
           end
         else
-          render json: { status: 'No buzzfeed for you' }, status: 200
+          render json: { status: 'No BuzzFeed for you' }, status: 200
         end
       else
         render json: { errors: ['current user does not belong to a valid category'] }, status: 404  
