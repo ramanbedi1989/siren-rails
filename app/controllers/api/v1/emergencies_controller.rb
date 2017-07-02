@@ -58,7 +58,7 @@ class Api::V1::EmergenciesController < ApplicationController
         render json: {light_status: 0}, status: 200
       end
     else
-      render json: {errors: ['Unable to find current route'], light_status: 0}, status: 404
+      render json: {errors: ['Unable to find current route'], light_status: 0}, status: 200
     end
   end
 
